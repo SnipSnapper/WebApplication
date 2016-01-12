@@ -12,5 +12,14 @@ namespace WebApplication.Controllers
         {
             return View();
         }
+
+        [HttpPost]
+        public ActionResult Test1()
+        {
+
+            Console.WriteLine("hoi");
+            return View();
+
+        }
     }
 }
