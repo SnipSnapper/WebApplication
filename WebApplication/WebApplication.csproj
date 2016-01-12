@@ -349,6 +349,7 @@
       <DependentUpon>Web.config</DependentUpon>
     </Content>
     <Content Include="Views\Account\Test.cshtml" />
+    <Content Include="Views\Home\Test1.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

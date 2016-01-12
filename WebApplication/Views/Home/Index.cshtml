@@ -1,7 +1,11 @@
-﻿@section SPAViews {
-    @Html.Partial("_Home")
-}
-@section Scripts{
+﻿@section Scripts{
     @Scripts.Render("~/bundles/knockout")
     @Scripts.Render("~/bundles/app")
+}
+
+@using (Html.BeginForm("Test1", "Home", FormMethod.Post))
+{
+    <span class="leftalign">
+        <input type="submit" id="btnIndex" class="k-button" value="Click me" />
+    </span>
 }
