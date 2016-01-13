@@ -5,11 +5,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web.UI.WebControls;
 
 namespace WebApplication.Models
 {
     class DBQuery
     {
+        public static List<long> list = new List<long>();
+
         static void Main(string[] args)
         {
             //CallMain(args).Wait();
@@ -53,22 +56,26 @@ namespace WebApplication.Models
             }
         }
 
-        static void Data()
+        public static void Data()
         {
             try
             {
-                MongoClient mc = new MongoClient("mongodb://145.24.222.117/test");
-                var db = mc.GetDatabase("test");
-                var collection = db.GetCollection<Positions>("positions");
+                var database = DBConnection.MongoConnection();
+                var collection = database.GetCollection<Positions>("positions");
+
                 var query = from c in collection.AsQueryable()
-                            where c.Speed == "0"
+                            where c.Speed == 100
                             select c;
+
 
                 foreach (Positions pos in query)
                 {
-                    Console.WriteLine(pos.UnitID + " | " + pos.DateTime + " | " + pos.Speed);
+                    //Console.WriteLine(pos.UnitID + " | " + pos.DateTime + " | " + pos.Speed);
+
+                    long unitId = pos.UnitID;
+                    list.Add(unitId);
                 }
-                Console.ReadKey();
+                    Console.ReadKey();
             }
             catch (FormatException fe)
             {

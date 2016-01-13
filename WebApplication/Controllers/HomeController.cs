@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
+using WebApplication.Models;
 
 namespace WebApplication.Controllers
 {
@@ -16,9 +17,15 @@ namespace WebApplication.Controllers
         [HttpPost]
         public ActionResult Test1()
         {
-
-            Console.WriteLine("hoi");
+            DBQuery.Data();
+            ViewData["data"] = DBQuery.list;
             return View();
+
+        }
+        public void TestMethod() {
+
+            
+
 
         }
     }
