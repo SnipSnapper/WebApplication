@@ -1,6 +1,7 @@
 ﻿using MongoDB.Bson;
 using MongoDB.Driver;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,55 +14,15 @@ namespace WebApplication.Models
     class DBQuery
     {
 
-        static async void Main(string[] args)
-        {
-            //CallMain(args).Wait();
-            //Console.ReadLine();
-
-            //MongoDBConnection().Wait();
-            //Console.ReadLine();
-            
-            Console.ReadLine();
-        }
-
-        //public static void Data()
-        //{
-        //    try
-        //    {
-        //        var database = DBConnection.MongoConnection();
-        //        var collection = database.GetCollection<Positions>("positions");
-
-        //        var query = from c in collection.AsQueryable()
-        //                    where c.Speed == 100
-        //                    select c;
-
-        //        foreach (Positions pos in query)
-        //        {
-        //            //Console.WriteLine(pos.UnitID + " | " + pos.DateTime + " | " + pos.Speed);
-
-        //            long unitId = pos.UnitID;
-        //            list.Add(unitId);
-        //        }
-        //            Console.ReadKey();
-        //    }
-        //    catch (FormatException fe)
-        //    {
-        //        Console.WriteLine("Error: " + fe);
-        //    }
-        //    catch (MongoCommandException mce)
-        //    {
-        //        Console.WriteLine("Error: " + mce);
-        //    }
-        //}
+        static IMongoDatabase database = DBConnection.MongoConnection();
+        static IMongoCollection<BsonDocument> collection = database.GetCollection<BsonDocument>("Positions");
 
         public static async Task<List<BsonDocument>> GetData() {
 
-            var database = DBConnection.MongoConnection();
-            var collection = database.GetCollection<BsonDocument>("positions");
-
-            var filter = Builders<BsonDocument>.Filter.Eq("Speed", 48);
-
-            var result = await collection.Find(filter).ToListAsync();
+            var builder = Builders<BsonDocument>.Filter;
+            var filter = builder.Gt("Speed", 100);
+            var sort = Builders<BsonDocument>.Sort.Ascending("Speed");
+            var result = await collection.Find(filter).Sort(sort).ToListAsync();
 
             return result;
         }
@@ -77,9 +38,11 @@ namespace WebApplication.Models
                 var value = doc["Speed"];
                 var value2 = doc["DateTime"];
                 var value3 = doc["UnitId"];
+                var value4 = doc["Rdx"];
+                var value5 = doc["Rdy"];
 
 
-                var valueResult = new HtmlString(value.ToString() + " | " + value2.ToString() + " | " + value3.ToString());
+                var valueResult = new HtmlString(value.ToString() + " | " + value2.ToString() + " | " + value3.ToString() + " | " + value4.ToString() +" | " + value5.ToString());
                 dataList.Add(valueResult);
 
             }
