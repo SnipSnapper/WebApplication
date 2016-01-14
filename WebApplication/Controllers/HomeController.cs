@@ -13,6 +13,7 @@ namespace WebApplication.Controllers
     public class HomeController : Controller
     {
         private static List<HtmlString> list = new List<HtmlString>();
+        
 
         public ActionResult Index()
         {
@@ -20,9 +21,9 @@ namespace WebApplication.Controllers
         }
 
         [HttpPost]
-        public ActionResult Test1()
+        public ActionResult Test1(string att, Int64 number)
         {
-            var run = Task.Run(() => Data());
+            var run = Task.Run(() => Data(att, number));
             var result = run.Result;
             list = result;
 
@@ -33,9 +34,9 @@ namespace WebApplication.Controllers
 
         }
 
-        public async Task<List<HtmlString>> Data() {
+        public async Task<List<HtmlString>> Data(string att, Int64 number) {
 
-            var positionList = await Task.Run(() => DBQuery.GetPosition().Result);
+            var positionList = await Task.Run(() => DBQuery.GetPosition(att, number).Result);
             System.Diagnostics.Debug.WriteLine(list.Count());
             return positionList;
 

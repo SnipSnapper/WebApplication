@@ -5,6 +5,14 @@
 
 @using (Html.BeginForm("Test1", "Home", FormMethod.Post))
 {
+        
+        <input type="text" id="number" name="number" value="" placeholder="Insert number" />
+
+        <select id="att" name="att">
+            <option value="Speed">Speed</option>
+            <option value="UnitId">Unit ID</option>
+            <option value="">
+        </select>
     <span class="leftalign">
         <input type="submit" id="btnIndex" class="k-button" value="Click me" />
     </span>

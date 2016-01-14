@@ -15,22 +15,23 @@ namespace WebApplication.Models
     {
 
         static IMongoDatabase database = DBConnection.MongoConnection();
-        static IMongoCollection<BsonDocument> collection = database.GetCollection<BsonDocument>("Positions");
+        static IMongoCollection<BsonDocument> posCollection = database.GetCollection<BsonDocument>("POSITIONS");
+        static IMongoCollection<BsonDocument> eventCollection = database.GetCollection<BsonDocument>("events");
 
-        public static async Task<List<BsonDocument>> GetData() {
+        public static async Task<List<BsonDocument>> GetData(string att, Int64 number) {
 
             var builder = Builders<BsonDocument>.Filter;
-            var filter = builder.Gt("Speed", 100);
+            var filter = builder.Gt(att, number);
             var sort = Builders<BsonDocument>.Sort.Ascending("Speed");
-            var result = await collection.Find(filter).Sort(sort).ToListAsync();
+            var result = await posCollection.Find(filter).Sort(sort).ToListAsync();
 
             return result;
         }
 
-        public static async Task<List<HtmlString>> GetPosition()
+        public static async Task<List<HtmlString>> GetPosition(string att, Int64 number)
         {
 
-            var positionList = await Task.Run(() => GetData());
+            var positionList = await Task.Run(() => GetData(att, number));
             List<HtmlString> dataList = new List<HtmlString>();
             foreach (BsonDocument doc in positionList)
             {
