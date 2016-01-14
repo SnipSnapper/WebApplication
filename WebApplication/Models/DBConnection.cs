@@ -16,8 +16,8 @@ namespace WebApplication.Models
 
         public static IMongoDatabase MongoConnection() {
 
-            client = new MongoClient("mongodb://145.24.222.117/Planetis1");
-            database = client.GetDatabase("Planetis1");
+            client = new MongoClient("mongodb://145.24.222.117/test");
+            database = client.GetDatabase("test");
 
             return database;
 
