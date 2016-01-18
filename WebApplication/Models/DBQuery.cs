@@ -3,6 +3,7 @@ using MongoDB.Driver;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,9 +17,11 @@ namespace WebApplication.Models
 
         static IMongoDatabase database = DBConnection.MongoConnection();
         static IMongoCollection<BsonDocument> posCollection = database.GetCollection<BsonDocument>("POSITIONS");
-        static IMongoCollection<BsonDocument> eventCollection = database.GetCollection<BsonDocument>("events");
+        static IMongoCollection<BsonDocument> eventCollection = database.GetCollection<BsonDocument>("EVENTS");
+        static IMongoCollection<BsonDocument> conCollection = database.GetCollection<BsonDocument>("CONNECTIONS");
+        static IMongoCollection<BsonDocument> monCollection = database.GetCollection<BsonDocument>("MONITORING");
 
-        // This method gets the data out of the database and executes a query.s
+        // This method gets the data out of the database and executes a query.
         public static async Task<List<BsonDocument>> GetData(string att, Int64 number, bool equal, bool greater, bool less) {
 
             var builder = Builders<BsonDocument>.Filter;
@@ -68,10 +71,10 @@ namespace WebApplication.Models
 
                 var valueResult = new HtmlString(value.ToString() + " | " + value2.ToString() + " | " + value3.ToString() + " | " + value4.ToString() +" | " + value5.ToString());
                 dataList.Add(valueResult);
-
             }
 
             return dataList;
         }
+
     }
 }

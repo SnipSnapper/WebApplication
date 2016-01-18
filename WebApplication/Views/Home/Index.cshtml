@@ -1,37 +1,45 @@
 ﻿<body>
-@section Scripts{
-    @Scripts.Render("~/bundles/knockout")
-    @Scripts.Render("~/bundles/app")
-    <script src="~/Scripts/homeScript.js"></script>
-}
+    @section Scripts{
+        @Scripts.Render("~/bundles/knockout")
+        @Scripts.Render("~/bundles/app")
+        <script src="~/Scripts/homeScript.js"></script>
+    }
 
-@using (Html.BeginForm("Test1", "Home", FormMethod.Post))
-{
-        <input type="text" id="number" name="number" value="" placeholder="Insert number" />
-            <div style='display:none'  id="Speed">
-                <label for="Greater">Greater:</label>
-                <input type="radio" name="query" value="true" id="greater">
-                <label for="Equal">Equal:</label>
-                <input type="radio" name="query" value="true" id="equal">
-                <label for="Equal">Less:</label>
-                <input type="radio" name="query" value="true" id="less">
-            </div>
-
+    @using (Html.BeginForm("Test1", "Home", FormMethod.Post))
+    {
+        // select which attribute the user wants to select
         <select id="att" name="att">
             <option value="">-- Select Option --</option>
             <option value="Speed">Speed</option>
             <option value="UnitId">Unit ID</option>
         </select>
-    <span class="leftalign">
-        <input type="submit" id="btnIndex" class="k-button" value="Click me" />
-    </span>
-}
 
-@using (Html.BeginForm("logoff", "Account", FormMethod.Post))
-{
+        <input type="text" id="html" name="html" value="" placeholder="Insert text" />
+
+        // these are the radio buttons and the textfield for the speed query.
+        <div style='display:none'  id="Speed">
+            <input type="text" id="number" name="number" value="" placeholder="Insert number" />
+            <label for="Greater">Greater:</label>
+            <input type="radio" name="query" value="true" id="greater">
+            <label for="Equal">Equal:</label>
+            <input type="radio" name="query" value="true" id="equal">
+            <label for="Equal">Less:</label>
+            <input type="radio" name="query" value="true" id="less">
+        </div>
+
+        // with this button the query will execute.
+        <span class="leftalign">
+            <input type="submit" id="btnIndex" class="k-button" value="Click me" />
+        </span>
+    }
+
+    
+    @using (Html.BeginForm("logoff", "Account", FormMethod.Post))
+    {
+        // this is the logout button.
         @Html.AntiForgeryToken()
         <span class="leftalign">
             <input type="submit" id="btnIndex" class="k-button" value="Log out" />
         </span>
-}
+    }
 </body>
