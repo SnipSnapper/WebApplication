@@ -1,19 +1,37 @@
-﻿@section Scripts{
+﻿<body>
+@section Scripts{
     @Scripts.Render("~/bundles/knockout")
     @Scripts.Render("~/bundles/app")
+    <script src="~/Scripts/homeScript.js"></script>
 }
 
 @using (Html.BeginForm("Test1", "Home", FormMethod.Post))
 {
-        
         <input type="text" id="number" name="number" value="" placeholder="Insert number" />
+            <div style='display:none'  id="Speed">
+                <label for="Greater">Greater:</label>
+                <input type="radio" name="query" value="true" id="greater">
+                <label for="Equal">Equal:</label>
+                <input type="radio" name="query" value="true" id="equal">
+                <label for="Equal">Less:</label>
+                <input type="radio" name="query" value="true" id="less">
+            </div>
 
         <select id="att" name="att">
+            <option value="">-- Select Option --</option>
             <option value="Speed">Speed</option>
             <option value="UnitId">Unit ID</option>
-            <option value="">
         </select>
     <span class="leftalign">
         <input type="submit" id="btnIndex" class="k-button" value="Click me" />
     </span>
 }
+
+@using (Html.BeginForm("logoff", "Account", FormMethod.Post))
+{
+        @Html.AntiForgeryToken()
+        <span class="leftalign">
+            <input type="submit" id="btnIndex" class="k-button" value="Log out" />
+        </span>
+}
+</body>

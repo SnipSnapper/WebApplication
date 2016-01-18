@@ -21,9 +21,9 @@ namespace WebApplication.Controllers
         }
 
         [HttpPost]
-        public ActionResult Test1(string att, Int64 number)
+        public ActionResult Test1(string att, Int64 number, bool equal = false, bool greater = false, bool less = false)
         {
-            var run = Task.Run(() => Data(att, number));
+            var run = Task.Run(() => Data(att, number, equal, greater, less));
             var result = run.Result;
             list = result;
 
@@ -34,9 +34,9 @@ namespace WebApplication.Controllers
 
         }
 
-        public async Task<List<HtmlString>> Data(string att, Int64 number) {
+        public async Task<List<HtmlString>> Data(string att, Int64 number, bool equal, bool greater, bool less) {
 
-            var positionList = await Task.Run(() => DBQuery.GetPosition(att, number).Result);
+            var positionList = await Task.Run(() => DBQuery.GetPosition(att, number, equal, greater, less).Result);
             System.Diagnostics.Debug.WriteLine(list.Count());
             return positionList;
 
