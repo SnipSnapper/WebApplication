@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Web;
 
 namespace WebApplication.Models
 {
@@ -10,7 +9,6 @@ namespace WebApplication.Models
     {
         private string lnd;
         private string ltd;
-
 
         public string Lnd
         {
@@ -44,7 +42,7 @@ namespace WebApplication.Models
             this.Ltd = ltd;
         }
 
-
+        
 
     }
 }
