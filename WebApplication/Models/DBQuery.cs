@@ -18,20 +18,43 @@ namespace WebApplication.Models
         static IMongoCollection<BsonDocument> posCollection = database.GetCollection<BsonDocument>("POSITIONS");
         static IMongoCollection<BsonDocument> eventCollection = database.GetCollection<BsonDocument>("events");
 
-        public static async Task<List<BsonDocument>> GetData(string att, Int64 number) {
+        // This method gets the data out of the database and executes a query.s
+        public static async Task<List<BsonDocument>> GetData(string att, Int64 number, bool equal, bool greater, bool less) {
 
             var builder = Builders<BsonDocument>.Filter;
-            var filter = builder.Gt(att, number);
-            var sort = Builders<BsonDocument>.Sort.Ascending("Speed");
-            var result = await posCollection.Find(filter).Sort(sort).ToListAsync();
+            var empty = new BsonDocument();
+            var equalQuery = builder.Eq(att, number);
+            var greaterQuery = builder.Gt(att, number);
+            var lessQuery = builder.Lt(att, number);
+            var sort = Builders<BsonDocument>.Sort.Ascending(att);
+            if (equal) {
 
-            return result;
+                var result = await posCollection.Find(equalQuery).Sort(sort).ToListAsync();
+                return result;
+            }
+            else if (greater) {
+
+                var result = await posCollection.Find(greaterQuery).Sort(sort).ToListAsync();
+                return result;
+
+            }
+            else if(less)
+            {
+                var result = await posCollection.Find(lessQuery).Sort(sort).ToListAsync();
+                return result;
+            }
+            else {
+
+                var result = await posCollection.Find(empty).Sort(sort).ToListAsync();
+                return result;
+            }
         }
 
-        public static async Task<List<HtmlString>> GetPosition(string att, Int64 number)
+        // This method gets the data from the last method and takes out the selected data and puts it in a List of HTML strings.
+        public static async Task<List<HtmlString>> GetPosition(string att, Int64 number, bool equal, bool greater, bool less)
         {
 
-            var positionList = await Task.Run(() => GetData(att, number));
+            var positionList = await Task.Run(() => GetData(att, number, equal, greater, less));
             List<HtmlString> dataList = new List<HtmlString>();
             foreach (BsonDocument doc in positionList)
             {

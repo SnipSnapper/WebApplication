@@ -295,6 +295,7 @@
     <Content Include="Areas\HelpPage\Views\Help\Api.cshtml" />
     <Content Include="app.config" />
     <None Include="Scripts\jquery-1.10.2-vsdoc.js" />
+    <Content Include="Scripts\homeScript.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <Content Include="Scripts\knockout-2.3.0.debug.js" />
