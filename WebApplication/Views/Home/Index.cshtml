@@ -14,17 +14,15 @@
             <option value="UnitId">Unit ID</option>
         </select>
 
-        <input type="text" id="html" name="html" value="" placeholder="Insert text" />
-
         // these are the radio buttons and the textfield for the speed query.
         <div style='display:none'  id="Speed">
             <input type="text" id="number" name="number" value="" placeholder="Insert number" />
             <label for="Greater">Greater:</label>
-            <input type="radio" name="query" value="true" id="greater">
+            <input type="radio" name="greater" value="true" id="greater">
             <label for="Equal">Equal:</label>
-            <input type="radio" name="query" value="true" id="equal">
+            <input type="radio" name="equal" value="true" id="equal">
             <label for="Equal">Less:</label>
-            <input type="radio" name="query" value="true" id="less">
+            <input type="radio" name="less" value="true" id="less">
         </div>
 
         // with this button the query will execute.
@@ -33,7 +31,6 @@
         </span>
     }
 
-    
     @using (Html.BeginForm("logoff", "Account", FormMethod.Post))
     {
         // this is the logout button.

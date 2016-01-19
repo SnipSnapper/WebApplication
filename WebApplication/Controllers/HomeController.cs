@@ -22,10 +22,9 @@ namespace WebApplication.Controllers
         }
 
         [HttpPost]
-        public ActionResult Test1(string att, Int64 number, string html, bool equal = false, bool greater = false, bool less = false)
+        public ActionResult Test1(string att, Int64 number, bool equal = false, bool greater = false, bool less = false)
         {
             var run = Task.Run(() => Data(att, number, equal, greater, less));
-            //PdfSharpConvert(html);
             var result = run.Result;
             list = result;
 
