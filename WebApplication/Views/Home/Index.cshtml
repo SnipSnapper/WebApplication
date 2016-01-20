@@ -21,20 +21,17 @@
 
         <div id="selectionForm">
 
-            @using (Html.BeginForm("ChooseData", "Home", FormMethod.Post))
-            {
-                // select which attribute the user wants to select
-                <select id="att" name="att">
-                    <option value="">-- Select Option --</option>
-                    <option value="Speed">Speed</option>
-                    <option value="UnitId">Unit ID</option>
-                    <option value="Software">Software</option>
-                    <option value="Hardware">Hardware</option>
-                </select>
-            }
+            <select id="att" name="att">
+                <option value="Speed">Speed</option>
+                <option value="UnitId">Unit ID</option>
+                <option value="Software">Software</option>
+                <option value="Hardware">Hardware</option>
+            </select>
+
 
             @using (Html.BeginForm("SpeedData", "Home", FormMethod.Post))
             {
+
                 // these are the radio buttons and the textfield for the speed query.
                 <div style='display:none' id="Speed" class="div">
                     <input class="input" type="text" id="number" name="number" value="" placeholder="Insert number" />
@@ -52,41 +49,26 @@
                     </span>
 
                 </div>
-
-                <div style='display:none' id="UnitId" class="div">
-                    <select id="unitAtt" name="unitAtt">
-                        <option value="">-- Select the unit --</option>
-                        <option value="14100071">14100071</option>
-                        <option value="14100064">14100064</option>
-                    </select>
-
-                    <label for="UnitSpeed">Speed:</label>
-                    <input type="checkbox" name="UnitSpeed" value="true">
-                    <label for="UnitLocation">Location</label>
-                    <input type="checkbox" name="UnitLocation" value="true">
-                </div>
+            
             }
             @using (Html.BeginForm("UnitIdData", "Home", FormMethod.Post))
             {
-                <div style='display:none' id="UnitId" class="div">
+                
+                    <div style='display:none' id="UnitId" class="div">
+                        <select id="unitAtt" name="unitAtt">
+                            <option value="14100071">14100071</option>
+                            <option value="14100064">14100064</option>
+                        </select>
 
-                    <select id="unitAtt" name="unitAtt">
-                        <option value="">-- Select the unit --</option>
-                        <option value="14100071">14100071</option>
-                        <option value="14100064">14100064</option>
-                    </select>
+                        <label for="UnitSpeed">Speed:</label>
+                        <input type="checkbox" name="UnitSpeed" value="true">
+                        <label for="UnitLocation">Location</label>
+                        <input type="checkbox" name="UnitLocation" value="true">
+                    </div>
 
-                    <input type="submit" id="btnUnitId" class="k-button" value="Click me" />
-
-
-                    <label for="UnitSpeed">Speed:</label>
-                    <input type="checkbox" name="UnitSpeed" value="true">
-                    <label for="UnitLocation">Location</label>
-                    <input type="checkbox" name="UnitLocation" value="true">
-
-                    <input type="submit" id="btnUnitId" class="k-button" value="Click me" />
-                </div>
+                <input type="submit" id="btnUnitId" class="k-button" value="Click me" />
             }
+
             <div style='display:none' id="Hardware" class="div">
                 This is the hardware div.
             </div>
