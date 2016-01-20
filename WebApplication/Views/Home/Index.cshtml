@@ -24,12 +24,13 @@
             @using (Html.BeginForm("ChooseData", "Home", FormMethod.Post))
             {
                 // select which attribute the user wants to select
+                <h4 class="center">Which sort of data you want to view?: </h4>
                 <select id="att" name="att">
                     <option value="">-- Select Option --</option>
                     <option value="Speed">Speed</option>
                     <option value="UnitId">Unit ID</option>
-                    <option value="Software">Software</option>
                     <option value="Hardware">Hardware</option>
+                    <option value="Software">Software</option>
                 </select>
             }
 
@@ -48,22 +49,9 @@
 
 
                     <span class="leftalign">
-                        <input type="submit" id="btnIndex" class="myButton" value="Speed query" />
+                        <input type="submit" id="btnIndex" class="myButton" value="Generate Rapport" />
                     </span>
 
-                </div>
-
-                <div style='display:none' id="UnitId" class="div">
-                    <select id="unitAtt" name="unitAtt">
-                        <option value="">-- Select the unit --</option>
-                        <option value="14100071">14100071</option>
-                        <option value="14100064">14100064</option>
-                    </select>
-
-                    <label for="UnitSpeed">Speed:</label>
-                    <input type="checkbox" name="UnitSpeed" value="true">
-                    <label for="UnitLocation">Location</label>
-                    <input type="checkbox" name="UnitLocation" value="true">
                 </div>
             }
             @using (Html.BeginForm("UnitIdData", "Home", FormMethod.Post))
@@ -71,30 +59,88 @@
                 <div style='display:none' id="UnitId" class="div">
 
                     <select id="unitAtt" name="unitAtt">
-                        <option value="">-- Select the unit --</option>
-                        <option value="14100071">14100071</option>
+                        <option value="999">999</option>
+                        <option value="14010206">14010206</option>
+                        <option value="14100015">14100015</option>
+                        <option value="14100042">14100042</option>
                         <option value="14100064">14100064</option>
+                        <option value="14100071">14100071</option>
+                        <option value="14120026">14120026</option>
+                        <option value="14120027">14120027</option>
+                        <option value="14120029">14120029</option>
+                        <option value="14120031">14120031</option>
+                        <option value="14120032">14120037</option>
+                        <option value="15030000">15030000</option>
+                        <option value="15030001">15030001</option>
+                        <option value="357566000058064">357566000058064</option>
                     </select>
-
-                    <input type="submit" id="btnUnitId" class="k-button" value="Click me" />
-
 
                     <label for="UnitSpeed">Speed:</label>
                     <input type="checkbox" name="UnitSpeed" value="true">
                     <label for="UnitLocation">Location</label>
                     <input type="checkbox" name="UnitLocation" value="true">
 
-                    <input type="submit" id="btnUnitId" class="k-button" value="Click me" />
+                    <input type="submit" id="btnUnitId" class="myButton" value="Generate Rapport" />
                 </div>
             }
+
+            @using (Html.BeginForm("HardwareData", "Home", FormMethod.Post))
+            {
             <div style='display:none' id="Hardware" class="div">
-                This is the hardware div.
+                <select id="hardwareCarID" name="hardwareCarID">
+                    <option value="999">999</option>
+                    <option value="14010206">14010206</option>
+                    <option value="14100015">14100015</option>
+                    <option value="14100042">14100042</option>
+                    <option value="14100064">14100064</option>
+                    <option value="14100071">14100071</option>
+                    <option value="14120026">14120026</option>
+                    <option value="14120029">14120029</option>
+                    <option value="14120031">14120031</option>
+                    <option value="14120032">14120032</option>
+                    <option value="15030000">15030000</option>
+                    <option value="15030001">15030001</option>
+                </select>
+                <select id="hardwareSort" name="hardwareSort">
+                    <option value="Hardware/ProcessorTemperature">Processor Temperature</option>
+                    <option value="Gps/GpsTemperature">GPS Temperature</option>
+                    <option value="SystemInfo/ProcessorUsage">Processor Usage</option>
+                    <option value="SystemInfo/AvailableDiskSpace">Available Disk Space</option>
+                    <option value="SystemInfo/AvailableMemory">Available Memory</option>
+                </select>
+                <span class="leftalign">
+                    <input type="submit" id="btnIndex" class="myButton" value="Generate Rapport" />
+                </span>
             </div>
+            }
 
+            @using (Html.BeginForm("SoftwareData", "Home", FormMethod.Post))
+            {
             <div style='display:none' id="Software" class="div">
-                This is the software div.
+                <select id="softwareCarID" name="softwareCarID">
+                    <option value="999">999</option>
+                    <option value="14010206">14010206</option>
+                    <option value="14100015">14100015</option>
+                    <option value="14100042">14100042</option>
+                    <option value="14100064">14100064</option>
+                    <option value="14100071">14100071</option>
+                    <option value="14120026">14120026</option>
+                    <option value="14120029">14120029</option>
+                    <option value="14120031">14120031</option>
+                    <option value="14120032">14120032</option>
+                    <option value="15030000">15030000</option>
+                    <option value="15030001">15030001</option>
+                </select>
+                <select id="softwareSort" name="softwareSort">
+                    <option value="Hsdpa/RSSI">Signal Strenght</option>
+                    <option value="SystemInfo/MemoryLoad">Memory Load</option>
+                    <option value="Gps/NumberOfSatellitesTracked">Number of Satellites Tracked</option>
+                </select>
+                <span class="leftalign">
+                    <input type="submit" id="btnIndex" class="myButton" value="Generate Rapport" />
+                </span>
             </div>
-
+            }
 
             @using (Html.BeginForm("logoff", "Account", FormMethod.Post))
             {
