@@ -23,46 +23,44 @@ namespace WebApplication.Models
         static IMongoCollection<BsonDocument> monCollection = database.GetCollection<BsonDocument>("MONITORING");
 
         //get the data out of the database and executes a query.
-        public static async Task<List<BsonDocument>> GetSpeed(string att, Int64 number2, Int64 number, bool equal, bool greater, bool less)
+        public static async Task<List<BsonDocument>> GetSpeed(Int64 number2, Int64 number, bool equal, bool greater, bool less)
         {
 
             var builder = Builders<BsonDocument>.Filter;
             var empty = new BsonDocument();
             var query = builder.Empty;
 
-            var sort = Builders<BsonDocument>.Sort.Ascending(att);
+            var sort = Builders<BsonDocument>.Sort.Ascending("Speed");
 
             if (equal) {
-                query = builder.Eq(att, number);
+                query = builder.Eq("Speed", number);
             }
             else if (greater) {
-                query = builder.Gt(att, number);
+                query = builder.Gt("Speed", number);
             }
             else if (less) {
-                query = builder.Lt(att, number);
+                query = builder.Lt("Speed", number);
             }
 
             var result = await posCollection.Find(query).Sort(sort).ToListAsync();
             return result;
         }
 
-        public static async Task<List<BsonDocument>> GetUnitId(string att, string unitAtt, bool UnitSpeed, bool UnitLocation)
+        public static async Task<List<BsonDocument>> GetUnitId(long unitAtt, bool UnitSpeed, bool UnitLocation)
         {
 
             var builder = Builders<BsonDocument>.Filter;
             var empty = new BsonDocument();
-            var query = builder.Empty;
+            var query = builder.Eq("UnitId", unitAtt);
 
-            var sort = Builders<BsonDocument>.Sort.Ascending(att);
-
-            var result = await posCollection.Find(query).Sort(sort).ToListAsync();
+            var result = await posCollection.Find(query).ToListAsync();
             return result;
         }
 
         //get the data from the last method and takes out the selected data and puts it in a List of HTML strings.
-        public static async Task<List<HtmlString>> GetSpeedData(string att, Int64 number2, Int64 number, bool equal, bool greater, bool less)
+        public static async Task<List<HtmlString>> GetSpeedData(Int64 number2, Int64 number, bool equal, bool greater, bool less)
         {
-            var positionList = await Task.Run(() => GetSpeed(att, number2, number, equal, greater, less));
+            var positionList = await Task.Run(() => GetSpeed(number2, number, equal, greater, less));
             List<HtmlString> dataList = new List<HtmlString>();
             foreach (BsonDocument doc in positionList)
             {
@@ -77,9 +75,9 @@ namespace WebApplication.Models
             return dataList;
         }
 
-        public static async Task<List<HtmlString>> GetUnitIdData(string att, string unitAtt, bool UnitSpeed, bool UnitLocation)
+        public static async Task<List<HtmlString>> GetUnitIdData(long unitAtt, bool UnitSpeed, bool UnitLocation)
         {
-            var positionList = await Task.Run(() => GetUnitId(att, unitAtt, UnitSpeed, UnitLocation));
+            var positionList = await Task.Run(() => GetUnitId(unitAtt, UnitSpeed, UnitLocation));
             List<HtmlString> dataList = new List<HtmlString>();
             foreach (BsonDocument doc in positionList)
             {
@@ -89,21 +87,18 @@ namespace WebApplication.Models
                 var value4 = doc["Rdx"];
                 var value5 = doc["Rdy"];
 
-                if (UnitSpeed)
-                {
+                if (UnitSpeed == true && UnitLocation == false) {
 
                     var valueResult = new HtmlString(value.ToString() + " | " + value2.ToString() + " | " + value3.ToString());
-
+                    dataList.Add(valueResult);
                 }
-                else if (UnitLocation)
-                {
+                else if (UnitLocation && UnitSpeed == false) {
 
                     var valueResult = new HtmlString(value.ToString() + " | " + value2.ToString() + " | " + value4.ToString() + " | " + value5.ToString());
                     dataList.Add(valueResult);
 
                 }
-                else if (UnitSpeed && UnitLocation)
-                {
+                else if (UnitSpeed && UnitLocation) {
 
                     var valueResult = new HtmlString(value.ToString() + " | " + value2.ToString() + " | " + value3.ToString() + " | " + value4.ToString() + " | " + value5.ToString());
                     dataList.Add(valueResult);
@@ -114,7 +109,6 @@ namespace WebApplication.Models
                     dataList.Add(valueResult);
                 }
             }
-
             return dataList;
         }
     }
