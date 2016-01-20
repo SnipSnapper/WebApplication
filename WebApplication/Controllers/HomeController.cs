@@ -13,34 +13,56 @@ namespace WebApplication.Controllers
     [Authorize]
     public class HomeController : Controller
     {
-        private static List<HtmlString> list = new List<HtmlString>();
-        
 
+        string attribute;
         public ActionResult Index()
         {
             return View();
         }
 
-        [HttpPost]
-        public ActionResult Test1(string att, Int64 number, bool equal = false, bool greater = false, bool less = false)
-        {
-            var run = Task.Run(() => Data(att, number, equal, greater, less));
-            var result = run.Result;
-            list = result;
+        public void ChooseData(string Attribute) {
 
-            ViewBag.position = list;
-            ViewBag.Count = ViewBag.position.Count;
-            
+            attribute = Attribute;
+        }
+
+        public ActionResult SpeedData(Int64 number2, Int64 number, bool equal = false, bool greater = false, bool less = false)
+        {
+            string att = attribute;
+            var run = Task.Run(() => DataSpeed(att, number2, number, equal, greater, less));
+            var result = run.Result;
+            List<HtmlString> list = new List<HtmlString>();
+            list = result;
+            ViewBag.speed = list;
+
             return View();
 
         }
 
-        public async Task<List<HtmlString>> Data(string att, Int64 number, bool equal, bool greater, bool less)
+        public void UnitIdData(string att, string unitAtt, bool UnitSpeed = false, bool UnitLocation = false)
+        {
+            var run = Task.Run(() => DataUnitId(att, unitAtt, UnitSpeed, UnitLocation));
+            var result = run.Result;
+            List<HtmlString> list = new List<HtmlString>();
+            list = result;
+
+            ViewBag.UnitId = list;
+            ViewBag.Count = ViewBag.position.Count;
+
+
+        }
+
+        public async Task<List<HtmlString>> DataSpeed(string att, Int64 number2, Int64 number, bool equal, bool greater, bool less)
         {
 
-            var positionList = await Task.Run(() => DBQuery.GetPosition(att, number, equal, greater, less).Result);
-            System.Diagnostics.Debug.WriteLine(list.Count());
+            var positionList = await Task.Run(() => DBQuery.GetSpeedData(att, number2, number, equal, greater, less).Result);
             return positionList;
+
+        }
+        public async Task<List<HtmlString>> DataUnitId(string att, string unitAtt, bool UnitSpeed, bool UnitLocation)
+        {
+
+            var speedList = await Task.Run(() => DBQuery.GetUnitIdData(att, unitAtt, UnitSpeed, UnitLocation).Result);
+            return speedList;
 
         }
     }
