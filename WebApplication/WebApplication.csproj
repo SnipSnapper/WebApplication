@@ -368,8 +368,9 @@
       <DependentUpon>Web.config</DependentUpon>
     </Content>
     <Content Include="Views\Account\Test.cshtml" />
-    <Content Include="Views\Home\Test1.cshtml" />
     <Content Include="Views\Home\GoogleMap.cshtml" />
+    <Content Include="Views\Home\SpeedData.cshtml" />
+    <Content Include="Views\Home\UnitIdData.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
