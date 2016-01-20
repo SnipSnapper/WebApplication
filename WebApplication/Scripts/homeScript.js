@@ -3,13 +3,12 @@
 
 $(document).ready(function () {
     $('#att').on('change', function () {
-        if (this.value == 'Speed')
-        {
-            $("#Speed").show();
-        }
-        else {
-            $("#Speed").hide();
-        }
+        var att = this.value;
+        //window.alert(att);
+        $(".div").hide();
+        $("#" + att).show();
+        $(".input").val("");
+
     });
 });
 
