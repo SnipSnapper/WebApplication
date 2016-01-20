@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Rotativa;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
@@ -37,6 +38,14 @@ namespace WebApplication.Controllers
             return View();
 
         }
+        public ActionResult DownloadViewPDF()
+        {
+            return new Rotativa.ViewAsPdf("Index")
+            {
+                FileName = Server.MapPath("~/Account/Login?ReturnUrl=%2F")
+            };
+        }
+
 
         public void UnitIdData(string att, string unitAtt, bool UnitSpeed = false, bool UnitLocation = false)
         {
