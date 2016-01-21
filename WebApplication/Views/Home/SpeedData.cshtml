@@ -1,5 +1,21 @@
-﻿
-@foreach (HtmlString item in ViewBag.speed)
+﻿@using (Html.BeginForm("DownloadViewPDF", "Home", FormMethod.Post))
 {
-    <span>@item</span> <br>
+    <span class="leftalign">
+        <input type="submit" id="btnIndex" class="myButton" value="PDF" />
+    </span>
 }
+
+
+<div class="center">
+    <table>
+        <tr>
+            <th>Speed</th>
+            <th>Datetime</th>
+            <th>Car ID</th>
+        </tr>
+        @foreach (HtmlString item in ViewBag.speed)
+        {
+            @item <br />
+        }
+    </table>
+</div>

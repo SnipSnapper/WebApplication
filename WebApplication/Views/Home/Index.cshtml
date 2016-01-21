@@ -2,11 +2,11 @@
     ViewBag.Title = "Selection";
 }
 
-
     @section Scripts{
         @Scripts.Render("~/bundles/knockout")
         @Scripts.Render("~/bundles/app")
         <script src="~/Scripts/homeScript.js"></script>
+       
     }
     <div class="container">
         <div id="header">
@@ -101,6 +101,15 @@
                     <option value="15030000">15030000</option>
                     <option value="15030001">15030001</option>
                 </select>
+                <select id="beginTime" name="beginTime">
+                    <option value="2015-03-10">10-03-2015</option>
+                    <option value="2015-03-11">11-03-2015</option>
+                    <option value="2015-03-12">12-03-2015</option>
+                    <option value="2015-03-13">13-03-2015</option>
+                    <option value="2015-03-14">14-03-2015</option>
+                    <option value="2015-03-15">15-03-2015</option>
+                    <option value="2015-03-16">16-03-2015</option>
+                </select>
                 <select id="hardwareSort" name="hardwareSort">
                     <option value="Hardware/ProcessorTemperature">Processor Temperature</option>
                     <option value="Gps/GpsTemperature">GPS Temperature</option>
@@ -148,6 +157,13 @@
                 @Html.AntiForgeryToken()
                 <span class="leftalign">
                     <input type="submit" id="btnIndex" class="myButton" value="Log out" />
+                </span>
+            }
+
+            @using (Html.BeginForm("DownloadViewPDF", "Home", FormMethod.Post))
+            {
+                <span class="leftalign">
+                    <input type="submit" id="btnIndex" class="myButton" value="PDF" />
                 </span>
             }
         </div>
