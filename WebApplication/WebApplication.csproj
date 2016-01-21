@@ -394,6 +394,8 @@
     <Content Include="Views\Home\SpeedData.cshtml" />
     <Content Include="Views\Home\UnitIdData.cshtml" />
     <Content Include="Views\Home\Pdf.cshtml" />
+    <Content Include="Views\Home\SoftwareData.cshtml" />
+    <Content Include="Views\Home\DateData.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

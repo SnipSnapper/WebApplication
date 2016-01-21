@@ -31,7 +31,6 @@ namespace WebApplication.Models
             var query = builder.Empty;
 
             var sort = Builders<BsonDocument>.Sort.Ascending("Speed");
-
             if (equal) {
                 query = builder.Eq("Speed", number);
             }
@@ -46,12 +45,37 @@ namespace WebApplication.Models
             return result;
         }
 
+        public static async Task<List<BsonDocument>> GetSoftware(long softwareCarID, string softwareSort)
+        {
+
+            var builder = Builders<BsonDocument>.Filter;
+            var empty = new BsonDocument();
+            var query = builder.Empty;
+
+            var sort = Builders<BsonDocument>.Sort.Ascending("type");
+
+            var result = await monCollection.Find(query).Sort(sort).ToListAsync();
+            return result;
+        }
+
         public static async Task<List<BsonDocument>> GetUnitId(long unitAtt, bool UnitSpeed, bool UnitLocation)
         {
 
             var builder = Builders<BsonDocument>.Filter;
             var empty = new BsonDocument();
             var query = builder.Eq("UnitId", unitAtt);
+
+
+            var result = await posCollection.Find(query).ToListAsync();
+            return result;
+        }
+
+        public static async Task<List<BsonDocument>> DateData(string dateTime, long UnitID, bool DateSpeed, bool DateUnitID)
+        {
+
+            var builder = Builders<BsonDocument>.Filter;
+            var empty = new BsonDocument();
+            var query = builder.Regex("DateTime", dateTime) & builder.Eq("UnitId", UnitID);
 
             var result = await posCollection.Find(query).ToListAsync();
             return result;
@@ -75,6 +99,26 @@ namespace WebApplication.Models
             return dataList;
         }
 
+        public static async Task<List<HtmlString>> GetSoftwareData(long softwareCarID, string softwareSort)
+        {
+            var softwareList = await Task.Run(() => GetSoftware(softwareCarID, softwareSort));
+            List<HtmlString> dataList = new List<HtmlString>();
+            foreach (BsonDocument doc in softwareList)
+            {
+                var value = doc["UnitID"];
+                var value2 = doc["beginTime"];
+                var value3 = doc["endTime"];
+                var value4 = doc["type"];
+                var value5 = doc["min"];
+                var value6 = doc["max"];
+                var value7 = doc["sum"];
+
+                var valueResult = new HtmlString(value.ToString() + " | " + value2.ToString() + " | " + value3.ToString() + " | " + value3.ToString() + " | " + value5.ToString() + " | " + value6.ToString() + " | " + value7.ToString());
+                dataList.Add(valueResult);
+            }
+
+            return dataList;
+        }
         public static async Task<List<HtmlString>> GetUnitIdData(long unitAtt, bool UnitSpeed, bool UnitLocation)
         {
             var positionList = await Task.Run(() => GetUnitId(unitAtt, UnitSpeed, UnitLocation));
@@ -109,6 +153,22 @@ namespace WebApplication.Models
                     dataList.Add(valueResult);
                 }
             }
+            return dataList;
+        }
+        public static async Task<List<HtmlString>> GetDate(string dateTime, long UnitID, bool DateSpeed, bool DateUnitID)
+        {
+            var positionList = await Task.Run(() => DateData(dateTime, UnitID, DateSpeed, DateUnitID));
+            List<HtmlString> dataList = new List<HtmlString>();
+            foreach (BsonDocument doc in positionList)
+            {
+                var value = doc["Speed"];
+                var value2 = doc["DateTime"];
+                var value3 = doc["UnitId"];
+
+                var valueResult = new HtmlString(value.ToString() + " | " + value2.ToString() + " | " + value3.ToString());
+                dataList.Add(valueResult);
+            }
+
             return dataList;
         }
     }

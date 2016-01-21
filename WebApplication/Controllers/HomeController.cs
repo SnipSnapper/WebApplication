@@ -64,17 +64,54 @@ namespace WebApplication.Controllers
             return positionList;
 
         }
+
+        public async Task<List<HtmlString>> Date(string dateTime, long UnitID, bool DateSpeed, bool DateUnitID)
+        {
+
+            var positionList = await Task.Run(() => DBQuery.GetDate(dateTime, UnitID, DateSpeed, DateUnitID).Result);
+            return positionList;
+
+        }
         public async Task<List<HtmlString>> DataUnitId(long unitAtt, bool UnitSpeed, bool UnitLocation)
         {
 
-            var speedList = await Task.Run(() => DBQuery.GetUnitIdData(unitAtt, UnitSpeed, UnitLocation).Result);
-            return speedList;
+            var unitIdList = await Task.Run(() => DBQuery.GetUnitIdData(unitAtt, UnitSpeed, UnitLocation).Result);
+            return unitIdList;
 
         }
 
-        public void ChangeAtt(string Attribute) {
+        public async Task<List<HtmlString>> Software(long softwareCarID, string softwareSort)
+        {
 
-            attribute = Attribute;
+            var softwareList = await Task.Run(() => DBQuery.GetSoftwareData(softwareCarID, softwareSort).Result);
+            return softwareList;
+
+        }
+        public ActionResult SoftwareData(long softwareCarID, string softwareSort) {
+
+            var run = Task.Run(() => Software(softwareCarID, softwareSort));
+            var result = run.Result;
+            List<HtmlString> list = new List<HtmlString>();
+            list = result;
+
+            ViewBag.Software = list;
+
+            return View();
+
+
+        }
+        public ActionResult DateData(string dateTime, long UnitID, bool DateSpeed = false, bool DateUnitID = false)
+        {
+
+            var run = Task.Run(() => Date(dateTime, UnitID, DateSpeed, DateUnitID));
+            var result = run.Result;
+            List<HtmlString> list = new List<HtmlString>();
+            list = result;
+
+            ViewBag.Date = list;
+
+            return View();
+
 
         }
     }

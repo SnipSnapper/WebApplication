@@ -2,7 +2,6 @@
     ViewBag.Title = "Selection";
 }
 
-
     @section Scripts{
         @Scripts.Render("~/bundles/knockout")
         @Scripts.Render("~/bundles/app")
@@ -10,9 +9,6 @@
     }
     <div class="container">
         <div id="header">
-            @*<a href="/index.cshtml" id="nolink">
-                    <p id="planetis">Planetis</p>
-                </a>*@
             <p id="planetis">Planetis</p>
         </div>
 
@@ -29,6 +25,7 @@
                     <option value="">-- Select Option --</option>
                     <option value="Speed">Speed</option>
                     <option value="UnitId">Unit ID</option>
+                    <option value="DateTimeDiv">Date</option>
                     <option value="Hardware">Hardware</option>
                     <option value="Software">Software</option>
                 </select>
@@ -46,7 +43,8 @@
                     <input type="radio" name="equal" value="true" id="equal">
                     <label for="Equal">Less:</label>
                     <input type="radio" name="less" value="true" id="less">
-
+                    <label for="Equal">Between:</label>
+                    <input type="radio" name="Between" value="true" id="less">
 
                     <span class="leftalign">
                         <input type="submit" id="btnIndex" class="myButton" value="Generate Rapport" />
@@ -82,6 +80,38 @@
 
                     <input type="submit" id="btnUnitId" class="myButton" value="Generate Rapport" />
                 </div>
+            }
+
+            @using (Html.BeginForm("DateData", "home", FormMethod.Post))
+            {
+                <div style='display:none' id="DateTimeDiv" class="div">
+                    <label for="date2">Speed:</label>
+                    <input type="checkbox" id="date1" name="DateSpeed" checked="checked" value="true" />
+                    <label for="date1">Unit ID:</label>
+                    <input type="checkbox" id="date2" name="DateUnitID" checked="checked" value="true" />
+                    <input class="input" type="text" id="dateTime" name="dateTime" value="" placeholder="Insert Date" />
+                    
+                    <select id="UnitID" name="UnitID">
+                        <option value="999">999</option>
+                        <option value="14010206">14010206</option>
+                        <option value="14100015">14100015</option>
+                        <option value="14100042">14100042</option>
+                        <option value="14100064">14100064</option>
+                        <option value="14100071">14100071</option>
+                        <option value="14120026">14120026</option>
+                        <option value="14120027">14120027</option>
+                        <option value="14120029">14120029</option>
+                        <option value="14120031">14120031</option>
+                        <option value="14120032">14120037</option>
+                        <option value="15030000">15030000</option>
+                        <option value="15030001">15030001</option>
+                        <option value="357566000058064">357566000058064</option>
+                    </select>
+
+                    <input type="submit" id="btnUnitId" class="myButton" value="Generate Rapport" />
+                </div>
+
+               
             }
 
             @using (Html.BeginForm("HardwareData", "Home", FormMethod.Post))
@@ -132,7 +162,7 @@
                     <option value="15030001">15030001</option>
                 </select>
                 <select id="softwareSort" name="softwareSort">
-                    <option value="Hsdpa/RSSI">Signal Strenght</option>
+                    <option value="Hsdpa/RSSI">Signal Strength</option>
                     <option value="SystemInfo/MemoryLoad">Memory Load</option>
                     <option value="Gps/NumberOfSatellitesTracked">Number of Satellites Tracked</option>
                 </select>
