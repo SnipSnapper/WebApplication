@@ -23,7 +23,7 @@ namespace WebApplication.Models
         static IMongoCollection<BsonDocument> monCollection = database.GetCollection<BsonDocument>("MONITORING");
 
         //get the data out of the database and executes a query.
-        public static async Task<List<BsonDocument>> GetSpeed(Int64 number2, Int64 number, bool equal, bool greater, bool less)
+        public static async Task<List<BsonDocument>> GetSpeed(Int64 number, bool equal, bool greater, bool less, Int64 number2)
         {
 
             var builder = Builders<BsonDocument>.Filter;
@@ -82,9 +82,9 @@ namespace WebApplication.Models
         }
 
         //get the data from the last method and takes out the selected data and puts it in a List of HTML strings.
-        public static async Task<List<HtmlString>> GetSpeedData(Int64 number2, Int64 number, bool equal, bool greater, bool less)
+        public static async Task<List<HtmlString>> GetSpeedData(Int64 number, bool equal, bool greater, bool less, Int64 number2 = 0)
         {
-            var positionList = await Task.Run(() => GetSpeed(number2, number, equal, greater, less));
+            var positionList = await Task.Run(() => GetSpeed(number, equal, greater, less, number2));
             List<HtmlString> dataList = new List<HtmlString>();
             foreach (BsonDocument doc in positionList)
             {

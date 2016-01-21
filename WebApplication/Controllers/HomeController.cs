@@ -23,9 +23,9 @@ namespace WebApplication.Controllers
         }
 
 
-        public ActionResult SpeedData(Int64 number2, Int64 number, bool equal = false, bool greater = false, bool less = false)
+        public ActionResult SpeedData(Int64 number, bool equal = false, bool greater = false, bool less = false, Int64 number2=0)
         {
-            var run = Task.Run(() => DataSpeed(number2, number, equal, greater, less));
+            var run = Task.Run(() => DataSpeed(number, equal, greater, less, number2));
             var result = run.Result;
             List<HtmlString> list = new List<HtmlString>();
             list = result;
@@ -57,10 +57,10 @@ namespace WebApplication.Controllers
 
         }
 
-        public async Task<List<HtmlString>> DataSpeed(Int64 number2, Int64 number, bool equal, bool greater, bool less)
+        public async Task<List<HtmlString>> DataSpeed(Int64 number, bool equal, bool greater, bool less, Int64 number2=0)
         {
 
-            var positionList = await Task.Run(() => DBQuery.GetSpeedData(number2, number, equal, greater, less).Result);
+            var positionList = await Task.Run(() => DBQuery.GetSpeedData(number, equal, greater, less, number2).Result);
             return positionList;
 
         }

@@ -20,6 +20,11 @@ $(document).ready(function () {
         $('input[type=radio]').prop('checked', false);
         $(this).prop('checked', true);
     });
+    $("#Between").pop(function () {
+        var test = $(this).val();
+        $("div.desc").hide();
+        $("#" + test).show();
+    });
 });
 
 $(document).ready(function () {
