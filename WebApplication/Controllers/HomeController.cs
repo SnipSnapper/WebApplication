@@ -23,9 +23,9 @@ namespace WebApplication.Controllers
         }
 
 
-        public ActionResult SpeedData(Int64 number, bool equal = false, bool greater = false, bool less = false, Int64 number2=0)
+        public ActionResult SpeedData(Int64 number, bool equal = false, bool greater = false, bool less = false, bool between = false, Int64 number2=0)
         {
-            var run = Task.Run(() => DataSpeed(number, equal, greater, less, number2));
+            var run = Task.Run(() => DataSpeed(number, equal, greater, less, between, number2));
             var result = run.Result;
             List<HtmlString> list = new List<HtmlString>();
             list = result;
@@ -57,10 +57,10 @@ namespace WebApplication.Controllers
 
         }
 
-        public async Task<List<HtmlString>> DataSpeed(Int64 number, bool equal, bool greater, bool less, Int64 number2=0)
+        public async Task<List<HtmlString>> DataSpeed(Int64 number, bool equal, bool greater, bool less, bool between, Int64 number2=0)
         {
 
-            var positionList = await Task.Run(() => DBQuery.GetSpeedData(number, equal, greater, less, number2).Result);
+            var positionList = await Task.Run(() => DBQuery.GetSpeedData(number, equal, greater, less, between, number2).Result);
             return positionList;
 
         }
@@ -111,8 +111,26 @@ namespace WebApplication.Controllers
             ViewBag.Date = list;
 
             return View();
+        }
 
+        public ActionResult HardwareData(long hardwareCarID, string beginTime, string hardwareSort)
+        {
+            var run = Task.Run(() => DataHardware(hardwareCarID, beginTime, hardwareSort));
+            var result = run.Result;
+            List<HtmlString> list = new List<HtmlString>();
+            list = result;
+
+            ViewBag.Hardware = list;
+            return View();
+        }
+
+        public async Task<List<HtmlString>> DataHardware(long hardwareCarID, string beginTime, string hardwareSort)
+        {
+
+            var hardwareList = await Task.Run(() => DBQuery.GetHardwareData(hardwareCarID, beginTime, hardwareSort).Result);
+            return hardwareList;
 
         }
+
     }
 }

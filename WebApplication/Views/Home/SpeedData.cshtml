@@ -1,5 +1,17 @@
 ﻿
-@foreach (HtmlString item in ViewBag.speed)
-{
-    <span>@item</span> <br>
-}
+<div class="center">
+
+    @foreach (HtmlString item in ViewBag.speed)
+    {
+        <table>
+            <tr>
+                <th>Speed</th>
+                <th>Datetime</th>
+                <th>Car ID</th>
+            </tr>
+            <tr>
+                @item
+            </tr>
+        </table>
+    }
+</div>

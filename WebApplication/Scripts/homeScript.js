@@ -19,11 +19,12 @@ $(document).ready(function () {
     $('input[type=radio]').click(function (event) {
         $('input[type=radio]').prop('checked', false);
         $(this).prop('checked', true);
-    });
-    $("#Between").pop(function () {
-        var test = $(this).val();
-        $("div.desc").hide();
-        $("#" + test).show();
+        if (this.name == "Between") {
+            $('#number2').fadeIn('slow');
+        } else if(this.name != "Between") {
+            $('#number2').fadeOut('slow');
+        }
+
     });
 });
 

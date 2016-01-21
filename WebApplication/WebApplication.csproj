@@ -396,6 +396,7 @@
     <Content Include="Views\Home\Pdf.cshtml" />
     <Content Include="Views\Home\SoftwareData.cshtml" />
     <Content Include="Views\Home\DateData.cshtml" />
+    <Content Include="Views\Home\HardWareData.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

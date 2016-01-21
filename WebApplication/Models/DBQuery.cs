@@ -23,7 +23,7 @@ namespace WebApplication.Models
         static IMongoCollection<BsonDocument> monCollection = database.GetCollection<BsonDocument>("MONITORING");
 
         //get the data out of the database and executes a query.
-        public static async Task<List<BsonDocument>> GetSpeed(Int64 number, bool equal, bool greater, bool less, Int64 number2)
+        public static async Task<List<BsonDocument>> GetSpeed(Int64 number, bool equal, bool greater, bool less, bool between, Int64 number2)
         {
 
             var builder = Builders<BsonDocument>.Filter;
@@ -31,7 +31,10 @@ namespace WebApplication.Models
             var query = builder.Empty;
 
             var sort = Builders<BsonDocument>.Sort.Ascending("Speed");
-            if (equal) {
+            if (between) {
+                query = builder.Gt("Speed", number) & builder.Lt("Speed", number2);
+            }
+            else if (equal) {
                 query = builder.Eq("Speed", number);
             }
             else if (greater) {
@@ -82,9 +85,9 @@ namespace WebApplication.Models
         }
 
         //get the data from the last method and takes out the selected data and puts it in a List of HTML strings.
-        public static async Task<List<HtmlString>> GetSpeedData(Int64 number, bool equal, bool greater, bool less, Int64 number2 = 0)
+        public static async Task<List<HtmlString>> GetSpeedData(Int64 number, bool equal, bool greater, bool less, bool between, Int64 number2 = 0)
         {
-            var positionList = await Task.Run(() => GetSpeed(number, equal, greater, less, number2));
+            var positionList = await Task.Run(() => GetSpeed(number, equal, greater, less, between, number2));
             List<HtmlString> dataList = new List<HtmlString>();
             foreach (BsonDocument doc in positionList)
             {
@@ -92,7 +95,8 @@ namespace WebApplication.Models
                 var value2 = doc["DateTime"];
                 var value3 = doc["UnitId"];
 
-                var valueResult = new HtmlString(value.ToString() + " | " + value2.ToString() + " | " + value3.ToString());
+                var valueResult = new HtmlString("<td style='width:20px'>" + value.ToString() +
+                    "</td> <td style='width:170px'>" + value2.ToString() + "</td> <td style='width:170px'>" + value3.ToString() + "</td>");
                 dataList.Add(valueResult);
             }
 
@@ -169,6 +173,35 @@ namespace WebApplication.Models
                 dataList.Add(valueResult);
             }
 
+            return dataList;
+        }
+
+        public static async Task<List<BsonDocument>> GetHardware(long hardwareCarID, string beginTime, string hardwareSort)
+        {
+            var builder = Builders<BsonDocument>.Filter;
+            var empty = new BsonDocument();
+            //var query = builder.Eq("UnitID", hardwareCarID) & builder.Eq("type", hardwareSort) & builder.In("beginTime", beginTime);
+            var query = builder.Eq("UnitID", hardwareCarID) & builder.Eq("type", hardwareSort);
+
+            var result = await monCollection.Find(query).ToListAsync();
+            return result;
+        }
+        public static async Task<List<HtmlString>> GetHardwareData(long hardwareCarID, string beginTime, string hardwareSort)
+        {
+            var monitoringList = await Task.Run(() => GetHardware(hardwareCarID, beginTime, hardwareSort));
+            List<HtmlString> dataList = new List<HtmlString>();
+            foreach (BsonDocument doc in monitoringList)
+            {
+                var value = doc["UnitID"];
+                var value2 = doc["beginTime"];
+                var value3 = doc["type"];
+                var value4 = doc["min"];
+
+
+                var valueResult = new HtmlString("<table> <td> <tr> " + value.ToString() + " </tr> " + " <tr> " + value2.ToString() + " </tr> <tr> " + value3.ToString() + " </tr> <tr> "
+                    + value4.ToString() + " </tr> </td> </table>");
+                dataList.Add(valueResult);
+            }
             return dataList;
         }
     }
