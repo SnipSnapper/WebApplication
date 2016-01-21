@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Rotativa;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
@@ -35,6 +36,7 @@ namespace WebApplication.Controllers
 
         }
 
+
         public ActionResult UnitIdData(long unitAtt, bool UnitSpeed = false, bool UnitLocation = false)
         {
             var run = Task.Run(() => DataUnitId(unitAtt, UnitSpeed, UnitLocation));
@@ -66,12 +68,52 @@ namespace WebApplication.Controllers
             return positionList;
 
         }
+
+        public async Task<List<HtmlString>> Date(string dateTime, long UnitID, bool DateSpeed, bool DateUnitID)
+        {
+
+            var positionList = await Task.Run(() => DBQuery.GetDate(dateTime, UnitID, DateSpeed, DateUnitID).Result);
+            return positionList;
+
+        }
         public async Task<List<HtmlString>> DataUnitId(long unitAtt, bool UnitSpeed, bool UnitLocation)
         {
 
-            var speedList = await Task.Run(() => DBQuery.GetUnitIdData(unitAtt, UnitSpeed, UnitLocation).Result);
-            return speedList;
+            var unitIdList = await Task.Run(() => DBQuery.GetUnitIdData(unitAtt, UnitSpeed, UnitLocation).Result);
+            return unitIdList;
 
+        }
+
+        public async Task<List<HtmlString>> Software(long softwareCarID, string softwareSort)
+        {
+
+            var softwareList = await Task.Run(() => DBQuery.GetSoftwareData(softwareCarID, softwareSort).Result);
+            return softwareList;
+
+        }
+        public ActionResult SoftwareData(long softwareCarID, string softwareSort) {
+
+            var run = Task.Run(() => Software(softwareCarID, softwareSort));
+            var result = run.Result;
+            List<HtmlString> list = new List<HtmlString>();
+            list = result;
+
+            ViewBag.Software = list;
+
+            return View();
+
+
+        }
+        public ActionResult DateData(string dateTime, long UnitID, bool DateSpeed = false, bool DateUnitID = false)
+        {
+
+            var run = Task.Run(() => Date(dateTime, UnitID, DateSpeed, DateUnitID));
+            var result = run.Result;
+            List<HtmlString> list = new List<HtmlString>();
+            list = result;
+
+            ViewBag.Date = list;
+            return View();
         }
 
         public async Task<List<HtmlString>> DataHardware(long hardwareCarID, string beginTime, string hardwareSort)
@@ -79,13 +121,6 @@ namespace WebApplication.Controllers
 
             var hardwareList = await Task.Run(() => DBQuery.GetHardwareData(hardwareCarID, beginTime, hardwareSort).Result);
             return hardwareList;
-
-        }
-
-        public void ChangeAtt(string Attribute) {
-
-            attribute = Attribute;
-
         }
 
         public ActionResult DownloadViewPDF()
