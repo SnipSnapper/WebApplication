@@ -1,17 +1,21 @@
-﻿
-<div class="center">
+﻿<div id="content">
 
-    @foreach (HtmlString item in ViewBag.speed)
-    {
-        <table>
-            <tr>
-                <th>Speed</th>
-                <th>Datetime</th>
-                <th>Car ID</th>
-            </tr>
-            <tr>
-                @item
-            </tr>
-        </table>
-    }
+    <div class="center">
+
+        @foreach (HtmlString item in ViewBag.speed)
+        {
+            <table>
+                <tr>
+                    <th>Speed</th>
+                    <th>Datetime</th>
+                    <th>Car ID</th>
+                </tr>
+                <tr>
+                    @item
+                </tr>
+            </table>
+        }
+    </div>
 </div>
+<div id="editor"></div>
+<button id="cmd">generate PDF</button>

@@ -1,5 +1,8 @@
-﻿
-@foreach (HtmlString item in ViewBag.Date)
-{
-    <span>@item</span> <br>
-}
+﻿<div id="content">
+    @foreach (HtmlString item in ViewBag.Date)
+    {
+        <span>@item</span> <br>
+    }
+</div>
+<div id="editor"></div>
+<button id="cmd">generate PDF</button>

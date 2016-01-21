@@ -7,6 +7,7 @@
 /// <reference path="app/home.viewmodel.js" />
 /// <reference path="bootstrap.js" />
 /// <reference path="homescript.js" />
+/// <reference path="htmltopdf.js" />
 /// <reference path="jquery-1.10.2.js" />
 /// <reference path="knockout.validation.js" />
 /// <reference path="knockout-2.3.0.debug.js" />
