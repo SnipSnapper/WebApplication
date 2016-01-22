@@ -6,23 +6,23 @@
         @Scripts.Render("~/bundles/knockout")
         @Scripts.Render("~/bundles/app")
         <script src="~/Scripts/homeScript.js"></script>
-        <script src="~/Scripts/HtmlToPdf.js"></script>
 
     }
     <div class="container">
         <div id="header">
             <p id="planetis">Planetis</p>
+           
         </div>
 
 
         <h1>@ViewBag.Title</h1>
+        <h4 class="center">Which sort of data you want to view?: </h4>
 
         <div id="selectionForm">
 
             @using (Html.BeginForm("ChooseData", "Home", FormMethod.Post))
             {
                 // select which attribute the user wants to select
-                <h4 class="center">Which sort of data you want to view?: </h4>
                 <select id="att" name="att">
                     <option value="">-- Select Option --</option>
                     <option value="Speed">Speed</option>
@@ -37,8 +37,9 @@
             {
                 // these are the radio buttons and the textfield for the speed query.
                 <div style='display:none' id="Speed" class="div">
-                    <input class="input" type="text" id="number" name="number" value="" placeholder="Insert number" />
-                    <input style='display:none' class="input" type="text" id="number2" name="number2" value="" placeholder="Insert second number" />
+                    <input class="input" type="text" id="number" name="number" onkeypress="return IsNumeric(event);" ondrop="return false;" onpaste="return false;" value="" placeholder="Insert number" />
+                    <input style='display:none' class="input" type="text" onkeypress="return IsNumeric(event);" ondrop="return false;" onpaste="return false;" id="number2" name="number2" value="" placeholder="Insert second number" />
+                    <span id="error" style="color: Red; display: none">* Input digits (0 - 9)</span>
                     <label for="Greater">Greater:</label>
                     <input type="radio" name="greater" value="true" id="greater">
                     <label for="Equal">Equal:</label>
@@ -91,8 +92,9 @@
                     <input type="checkbox" id="date1" name="DateSpeed" checked="checked" value="true" />
                     <label for="date1">Unit ID:</label>
                     <input type="checkbox" id="date2" name="DateUnitID" checked="checked" value="true" />
-                    <input class="input" type="text" id="dateTime" name="dateTime" value="" placeholder="Insert Date" />
-                    
+                    <input class="input" type="text" id="dateTime" name="dateTime" value="" onkeypress="return IsNumericDate(event);" ondrop="return false;" onpaste="return false;"  placeholder="year-month-day 2015-03-10" />
+                    <span id="errorDate" style="color: Red; display: none">* Input digits (0 - 9)</span>
+
                     <select id="UnitID" name="UnitID">
                         <option value="999">999</option>
                         <option value="14010206">14010206</option>
@@ -173,6 +175,7 @@
                 </span>
             </div>
             }
+            </br>
 
             @using (Html.BeginForm("logoff", "Account", FormMethod.Post))
             {

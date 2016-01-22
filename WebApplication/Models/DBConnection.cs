@@ -6,6 +6,10 @@ using System.Threading.Tasks;
 using MongoDB.Bson;
 using MongoDB.Driver;
 
+
+/// <summary>
+/// this class connects to the database.
+/// </summary>
 namespace WebApplication.Models
 {
     class DBConnection
@@ -13,7 +17,7 @@ namespace WebApplication.Models
         static IMongoClient client;
         static IMongoDatabase database;
 
-
+        // make a connection with the database.
         public static IMongoDatabase MongoConnection() {
 
             client = new MongoClient("mongodb://145.24.222.117/Planetis3");

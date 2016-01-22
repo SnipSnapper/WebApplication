@@ -1,8 +1,22 @@
-﻿<div id="content">
+﻿@{
+    ViewBag.Title = "HardwareData";
+}
+<br />
+
+
+@using (Html.BeginForm("Index", "Home", FormMethod.Post))
+{
+    <span class="leftalign">
+        <input type="submit" id="btnIndex" class="myButton" value="Back" />
+    </span>
+}
+<br />
+
+<div class="center">
+
     @foreach (HtmlString item in ViewBag.Hardware)
     {
-        <span>@item</span> <br>
+        @item
     }
+    
 </div>
-<div id="editor"></div>
-<button id="cmd">generate PDF</button>

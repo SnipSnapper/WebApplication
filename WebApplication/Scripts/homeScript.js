@@ -1,6 +1,6 @@
 ﻿
-// This code shows the radio buttons for speed when selecting speed out of the dropdown menu.
 
+// check which attribute is selected and open the accessory div
 $(document).ready(function () {
     $('#att').on('change', function () {
         var att = this.value;
@@ -12,6 +12,7 @@ $(document).ready(function () {
     });
 });
 
+// check which radio button is selected. when the radio button "Between" is selected a second input textfield will appear
 $(document).ready(function () {
     $('input[type=radio]').prop('checked', false);
     $('input[type=radio]:first').prop('checked', true)
@@ -28,6 +29,7 @@ $(document).ready(function () {
     });
 });
 
+// when selected date the div will show
 $(document).ready(function () {
     $('#date').change(function () {
         if (this.checked) {
@@ -37,3 +39,24 @@ $(document).ready(function () {
         }
     });
 });
+
+// check if the input value is numeric
+var specialKeys = new Array();
+specialKeys.push(8); //Backspace
+function IsNumeric(e) {
+    var keyCode = e.which ? e.which : e.keyCode
+    var ret = ((keyCode >= 48 && keyCode <= 57) || specialKeys.indexOf(keyCode) != -1);
+    document.getElementById("error").style.display = ret ? "none" : "inline";
+    return ret;
+}
+
+// check if the input is a numeric value but this time with an exception for the "-" sign
+var specialKeys = new Array();
+specialKeys.push(8); //Backspace
+specialKeys.push(45) // "-" sign
+function IsNumericDate(e) {
+    var keyCode = e.which ? e.which : e.keyCode
+    var ret = ((keyCode >= 48 && keyCode <= 57) || specialKeys.indexOf(keyCode) != -1);
+    document.getElementById("errorDate").style.display = ret ? "none" : "inline";
+    return ret;
+}
