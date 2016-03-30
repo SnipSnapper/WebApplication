@@ -59,18 +59,6 @@ namespace WebApplication.Models
             return result;
         }
 
-        public static async Task<List<BsonDocument>> GetUnitId(long unitAtt, bool UnitSpeed, bool UnitLocation)
-        {
-
-            var builder = Builders<BsonDocument>.Filter;
-            var empty = new BsonDocument();
-            var query = builder.Eq("UnitId", unitAtt);
-
-
-            var result = await posCollection.Find(query).ToListAsync();
-            return result;
-        }
-
         public static async Task<List<BsonDocument>> DateData(string dateTime, long UnitID, bool DateSpeed, bool DateUnitID)
         {
 
