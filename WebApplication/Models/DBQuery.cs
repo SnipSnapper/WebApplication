@@ -173,7 +173,8 @@ namespace WebApplication.Models
                 var value2 = doc["DateTime"];
                 var value3 = doc["UnitId"];
 
-                var valueResult = new HtmlString(value.ToString() + " | " + value2.ToString() + " | " + value3.ToString());
+                var valueResult = new HtmlString("<table><tr><th>Speed</th><th>Time</th><th>Unit ID</th></tr><tr><td style='width:100px'>" + value.ToString()
+                                    + "</td> <td style='width:150px'>" + value2.ToString() + "</td> <td style='width:250px'>" + value3.ToString() + "</td></tr></table> ");
                 dataList.Add(valueResult);
             }
 
@@ -195,7 +196,6 @@ namespace WebApplication.Models
         {
             var builder = Builders<BsonDocument>.Filter;
             var empty = new BsonDocument();
-            //var query = builder.Eq("UnitID", hardwareCarID) & builder.Eq("type", hardwareSort) & builder.In("beginTime", beginTime);
             var query = builder.Eq("UnitID", hardwareCarID) & builder.Eq("type", hardwareSort);
 
             var result = await monCollection.Find(query).ToListAsync();
@@ -219,6 +219,6 @@ namespace WebApplication.Models
                 dataList.Add(valueResult);
             }
             return dataList;
-        }
+        }  
     }
 }
