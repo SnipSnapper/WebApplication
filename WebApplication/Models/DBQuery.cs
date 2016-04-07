@@ -15,7 +15,7 @@ namespace WebApplication.Models
 {
     class DBQuery
     {
-        //This is a test
+        //This is a test to test if jenkins will build after a commit
 
         static IMongoDatabase database = DBConnection.MongoConnection();
         static IMongoCollection<BsonDocument> posCollection = database.GetCollection<BsonDocument>("POSITIONS");
