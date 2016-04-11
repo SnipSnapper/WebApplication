@@ -13,9 +13,8 @@ using WebApplication.Models;
 
 namespace WebApplication.Models
 {
-    class DBQuery
+    public class DBQuery
     {
-        //Please work!!
 
         static IMongoDatabase database = DBConnection.MongoConnection();
         static IMongoCollection<BsonDocument> posCollection = database.GetCollection<BsonDocument>("POSITIONS");
@@ -24,7 +23,7 @@ namespace WebApplication.Models
         static IMongoCollection<BsonDocument> monCollection = database.GetCollection<BsonDocument>("MONITORING");
 
         //get the data out of the database and executes a query.
-        public static async Task<List<BsonDocument>> GetSpeed(Int64 number2, Int64 number, bool equal, bool greater, bool less)
+        public async Task<List<BsonDocument>> GetSpeed(Int64 number2, Int64 number, bool equal, bool greater, bool less)
         {
 
             var builder = Builders<BsonDocument>.Filter;
@@ -72,7 +71,7 @@ namespace WebApplication.Models
         }
 
         //get the data from the last method and takes out the selected data and puts it in a List of HTML strings.
-        public static async Task<List<HtmlString>> GetSpeedData(Int64 number2, Int64 number, bool equal, bool greater, bool less)
+        public async Task<List<HtmlString>> GetSpeedData(Int64 number2, Int64 number, bool equal, bool greater, bool less)
         {
             var positionList = await Task.Run(() => GetSpeed(number2, number, equal, greater, less));
             List<HtmlString> dataList = new List<HtmlString>();

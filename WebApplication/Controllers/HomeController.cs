@@ -64,7 +64,8 @@ namespace WebApplication.Controllers
         
         public async Task<List<HtmlString>> DataSpeed(Int64 number2, Int64 number, bool equal, bool greater, bool less)
         {
-            var positionList = await Task.Run(() => DBQuery.GetSpeedData(number2, number, equal, greater, less).Result);
+            DBQuery dbquery = new DBQuery();
+            var positionList = await Task.Run(() => dbquery.GetSpeedData(number2, number, equal, greater, less).Result);
             return positionList;
 
         }
