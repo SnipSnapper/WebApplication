@@ -12,6 +12,7 @@ using Rotativa.Options;
 
 namespace WebApplication.Controllers
 {
+    // please do something
     [Authorize]
     public class HomeController : Controller
     {
